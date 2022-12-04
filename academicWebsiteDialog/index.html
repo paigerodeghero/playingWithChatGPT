@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Website</title>
+</head>
+<body>
+  <h1>My Website</h1>
+  <p>Welcome to my website!</p>
+
+<script>
+    // Use the fetch() method to load the JSON data
+    fetch('data.json')
+      .then(response => response.json())
+      .then(json => {
+        // Use the JSON data to generate the HTML for the page
+        console.log(json)
+        var html = `
+          <h2>Academic Programs</h2>
+          <ul>
+            ${json.programs.map(program => `
+              <li>
+                <h3>${program.name}</h3>
+                <p>${program.description}</p>
+              </li>
+            `).join('')}
+          </ul>
+          <h2>Student Resources</h2>
+          <ul>
+            ${json.resources.map(resource => `
+              <li>
+                <h3>${resource.name}</h3>
+                <p>${resource.description}</p>
+              </li>
+            `).join('')}
+          </ul>
+          <h2>Contact Us</h2>
+          <p>For more information about the ${json.name}, please contact us at:</p>
+          <p>${json.contact.address}<br>
+             Phone: ${json.contact.phone}<br>
+             Email: ${json.contact.email}</p>
+        `;
+
+        // Append the HTML to the page
+        document.body.innerHTML += html
+})
+</script>
+</body>
+</html>
+
